@@ -4,7 +4,15 @@ import argparse
 import re
 
 sys.path.insert(0, os.getcwd())
-from zigzag.classes.stages import *
+from zigzag.stages.CostModelStage import CostModelStage
+from zigzag.stages.MainStage import MainStage
+from zigzag.stages.SpatialMappingGeneratorStage import SpatialMappingGeneratorStage
+from zigzag.stages.WorkloadStage import WorkloadStage
+from zigzag.stages.ONNXModelParserStage import ONNXModelParserStage
+from zigzag.stages.AcceleratorParserStage import AcceleratorParserStage
+from zigzag.stages.LomaStage import LomaStage
+from zigzag.stages.save_stages import CompleteSaveStage
+from zigzag.stages.reduce_stages import MinimalLatencyStage
 
 
 from zigzag.visualization.results.plot_cme import (
@@ -67,6 +75,7 @@ mainstage = MainStage(
     dump_filename_pattern=f"lab2/outputs/{experiment_id}-?.json",  # output file save pattern, ? will be replaced
     loma_lpf_limit=6,  # required by LomaStage
     loma_show_progress_bar=True,  # shows a progress bar while iterating over temporal mappings
+    nb_mappings_generated=100,
 )
 
 # Launch the MainStage
