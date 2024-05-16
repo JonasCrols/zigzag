@@ -4,7 +4,15 @@ import argparse
 import re
 
 sys.path.insert(0, os.getcwd())
-from zigzag.classes.stages import *
+from zigzag.stages.CostModelStage import CostModelStage
+from zigzag.stages.MainStage import MainStage
+from zigzag.stages.SpatialMappingGeneratorStage import SpatialMappingGeneratorStage
+from zigzag.stages.WorkloadStage import WorkloadStage
+from zigzag.stages.ONNXModelParserStage import ONNXModelParserStage
+from zigzag.stages.AcceleratorParserStage import AcceleratorParserStage
+from zigzag.stages.TemporalOrderingConversionStage import TemporalOrderingConversionStage
+from zigzag.stages.save_stages import CompleteSaveStage
+from zigzag.stages.reduce_stages import MinimalLatencyStage
 
 
 from zigzag.visualization.results.plot_cme import (
@@ -56,7 +64,7 @@ mainstage = MainStage(
         AcceleratorParserStage,  # Parses the accelerator
         CompleteSaveStage,  # Saves all received CMEs information to a json
         WorkloadStage,  # Iterates through the different layers in the workload
-        SpatialMappingGeneratorStage,  # Generates multiple spatial mappings (SM)
+        SpatialMappingGeneratorStage,  # Converts the provided spatial mapping to ZigZag's internal representation
         MinimalLatencyStage,  # Reduces all CMEs, returning minimal latency one
         TemporalOrderingConversionStage,  # Converts defined temporal_ordering to temporal mapping
         CostModelStage,  # Evaluates generated SM and TM through cost model
